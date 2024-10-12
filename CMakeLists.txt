@@ -74,7 +74,7 @@ add_library(maliit-common STATIC
             common/maliit/namespaceinternal.h
             common/maliit/settingdata.cpp
             common/maliit/settingdata.h)
-target_link_libraries(maliit-common Qt::Core)
+target_link_libraries(maliit-common Qt${QT_VERSION_MAJOR}::Core)
 target_include_directories(maliit-common PUBLIC common)
 
 set(CONNECTION_SOURCES
@@ -124,7 +124,8 @@ qt5_add_dbus_interface(CONNECTION_SOURCES dbus_interfaces/minputmethodserver1int
 endif()
 
 add_library(maliit-connection STATIC ${CONNECTION_SOURCES})
-target_link_libraries(maliit-connection Qt::Core Qt::DBus Qt::Gui maliit-common)
+target_link_libraries(maliit-connection
+    Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::DBus Qt${QT_VERSION_MAJOR}::Gui maliit-common)
 if(enable-wayland)
     target_link_libraries(maliit-connection Wayland::Client PkgConfig::XKBCOMMON)
 endif()
@@ -234,7 +235,7 @@ endif()
 
 add_library(maliit-plugins SHARED ${PLUGINS_SOURCES} ${PLUGINS_HEADER})
 target_link_libraries(maliit-plugins PRIVATE maliit-common maliit-connection ${PLUGINS_LIBRARIES})
-target_link_libraries(maliit-plugins PUBLIC Qt::Core Qt::Gui Qt::Quick)
+target_link_libraries(maliit-plugins PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Quick)
 target_include_directories(maliit-plugins PRIVATE ${PLUGINS_INCLUDE_DIRS})
 
 set_target_properties(maliit-plugins PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR}
@@ -316,7 +317,7 @@ if(enable-qt-inputcontext)
             input-context/minputcontext.h)
 
     add_library(maliitplatforminputcontextplugin MODULE ${INPUT_CONTEXT_SOURCES})
-    target_link_libraries(maliitplatforminputcontextplugin maliit-connection Qt::Quick)
+    target_link_libraries(maliitplatforminputcontextplugin maliit-connection Qt${QT_VERSION_MAJOR}::Quick)
 endif()
 
 if(enable-wayland)
@@ -328,9 +329,9 @@ if(enable-wayland)
     ecm_add_qtwayland_client_protocol(INPUT_PANEL_SHELL_SOURCES PROTOCOL ${WAYLANDPROTOCOLS_PATH}/unstable/input-method/input-method-unstable-v1.xml BASENAME input-method-unstable-v1)
 
     add_library(inputpanel-shell MODULE ${INPUT_PANEL_SHELL_SOURCES})
-    target_link_libraries(inputpanel-shell Qt::WaylandClient PkgConfig::XKBCOMMON Wayland::Client)
+    target_link_libraries(inputpanel-shell Qt${QT_VERSION_MAJOR}::WaylandClient PkgConfig::XKBCOMMON Wayland::Client)
     if (Qt6_FOUND)
-      target_link_libraries(inputpanel-shell Qt::WaylandGlobalPrivate)
+      target_link_libraries(inputpanel-shell Qt${QT_VERSION_MAJOR}::WaylandGlobalPrivate)
       target_include_directories(inputpanel-shell PRIVATE ${Qt6WaylandClient_PRIVATE_INCLUDE_DIRS} ${Qt6WaylandGlobalPrivate_PRIVATE_INCLUDE_DIRS} ${Qt6XkbCommonSupport_PRIVATE_INCLUDE_DIRS})
     else()
       target_include_directories(inputpanel-shell PRIVATE ${Qt5WaylandClient_PRIVATE_INCLUDE_DIRS} ${Qt5XkbCommonSupport_PRIVATE_INCLUDE_DIRS})
@@ -343,21 +344,21 @@ if(enable-examples)
             examples/apps/plainqt/mainwindow.cpp
             examples/apps/plainqt/mainwindow.h
             examples/apps/plainqt/plainqt.cpp)
-    target_link_libraries(maliit-exampleapp-plainqt Qt::Gui Qt::Widgets)
+    target_link_libraries(maliit-exampleapp-plainqt Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets)
 
     add_library(cxxhelloworldplugin MODULE
             examples/plugins/cxx/helloworld/helloworldinputmethod.cpp
             examples/plugins/cxx/helloworld/helloworldinputmethod.h
             examples/plugins/cxx/helloworld/helloworldplugin.cpp
             examples/plugins/cxx/helloworld/helloworldplugin.h)
-    target_link_libraries(cxxhelloworldplugin maliit-plugins Qt::Widgets)
+    target_link_libraries(cxxhelloworldplugin maliit-plugins Qt${QT_VERSION_MAJOR}::Widgets)
 
     add_library(cxxoverrideplugin MODULE
                 examples/plugins/cxx/override/overrideinputmethod.cpp
                 examples/plugins/cxx/override/overrideinputmethod.h
                 examples/plugins/cxx/override/overrideplugin.cpp
                 examples/plugins/cxx/override/overrideplugin.h)
-    target_link_libraries(cxxoverrideplugin maliit-plugins Qt::Widgets)
+    target_link_libraries(cxxoverrideplugin maliit-plugins Qt${QT_VERSION_MAJOR}::Widgets)
 endif()
 
 # Documentation
@@ -523,7 +524,7 @@ if(enable-tests)
             tests/utils/core-utils.h
             tests/utils/gui-utils.cpp
             tests/utils/gui-utils.h)
-    target_link_libraries(test-utils PUBLIC Qt::Core Qt::Gui Qt::Test maliit-connection)
+    target_link_libraries(test-utils PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Test maliit-connection)
     target_include_directories(test-utils INTERFACE tests/utils)
     target_compile_definitions(test-utils PUBLIC
             -DMALIIT_TEST_PLUGINS_DIR="${CMAKE_INSTALL_FULL_LIBDIR}/maliit-framework-tests/plugins"
@@ -534,7 +535,7 @@ if(enable-tests)
             tests/stubs/mkeyboardstatetracker_stub.h
             tests/stubs/fakeproperty.cpp
             tests/stubs/fakeproperty.h)
-    target_link_libraries(test-stubs PUBLIC Qt::Core)
+    target_link_libraries(test-stubs PUBLIC Qt${QT_VERSION_MAJOR}::Core)
     target_include_directories(test-stubs INTERFACE tests/stubs)
 
     function(create_test name)
