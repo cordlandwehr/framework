@@ -17,7 +17,7 @@ option(enable-qt-inputcontext "Compile with Qt input context" ON)
 
 option(enable-hwkeyboard "Enable support for the hardware keyboard" ON)
 option(enable-dbus-activation "Enable dbus activation support for maliit-server" OFF)
-option(with-qt6 "Built with Qt 6 instead of Qt 5" OFF)
+option(BUILD_WITH_QT6 "Built with Qt 6 instead of Qt 5" OFF)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -31,7 +31,7 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(PkgConfig REQUIRED)
 
-if(with-qt6)
+if(BUILD_WITH_QT6)
   find_package(Qt6 6.0 REQUIRED COMPONENTS Core DBus Gui Quick)
 endif()
 
