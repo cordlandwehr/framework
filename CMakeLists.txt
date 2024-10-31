@@ -411,7 +411,7 @@ write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/MaliitPluginsConfig
 install(TARGETS maliit-plugins
         EXPORT MaliitPluginsTargets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit-2)
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit${MALIIT_LIB_SUFFIX}-2)
 
 install(TARGETS maliit-server
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
@@ -422,15 +422,15 @@ if(enable-examples)
 endif()
 
 install(DIRECTORY common/
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit-2
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit${MALIIT_LIB_SUFFIX}-2
         FILES_MATCHING PATTERN "*.h"
         PATTERN "*internal.h" EXCLUDE)
 install(DIRECTORY src/maliit
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit-2
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit${MALIIT_LIB_SUFFIX}-2
         FILES_MATCHING PATTERN "*.h"
         PATTERN "*_p.h" EXCLUDE)
 install(FILES src/mimserver.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit-2/maliit)
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit${MALIIT_LIB_SUFFIX}-2/maliit)
 
 install(FILES ${CMAKE_BINARY_DIR}/maliit-framework.pc ${CMAKE_BINARY_DIR}/maliit-plugins.pc ${CMAKE_BINARY_DIR}/maliit-server.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
@@ -456,12 +456,12 @@ if(enable-glib)
 
     install(TARGETS maliit-glib EXPORT MaliitGLibTargets
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit-2)
+            INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit${MALIIT_LIB_SUFFIX}-2)
 
-    install(DIRECTORY maliit-glib DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit-2
+    install(DIRECTORY maliit-glib DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit${MALIIT_LIB_SUFFIX}-2
             FILES_MATCHING PATTERN "*.h"
             PATTERN "*private.h" EXCLUDE)
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/maliit-glib DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit-2
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/maliit${MALIIT_LIB_SUFFIX}-glib DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit-2
             FILES_MATCHING PATTERN "*.h")
 
     install(EXPORT MaliitGLibTargets FILE MaliitGLibTargets.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MaliitGLib)
