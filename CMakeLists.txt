@@ -488,7 +488,7 @@ endif()
 
 if(enable-docs)
     install(DIRECTORY ${CMAKE_BINARY_DIR}/doc/html/
-            DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/maliit-framework-doc)
+            DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/maliit${MALIIT_LIB_SUFFIX}-framework-doc)
 endif()
 
 # Tests
