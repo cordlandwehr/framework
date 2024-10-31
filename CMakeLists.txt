@@ -309,10 +309,10 @@ if(enable-glib)
 endif()
 
 add_definitions(-DMALIIT_FRAMEWORK_USE_INTERNAL_API
-                -DMALIIT_PLUGINS_DATA_DIR="${CMAKE_INSTALL_FULL_DATADIR}/maliit/plugins"
-                -DMALIIT_EXTENSIONS_DIR="${CMAKE_INSTALL_FULL_DATADIR}/maliit-framework/extensions"
+                -DMALIIT_PLUGINS_DATA_DIR="${CMAKE_INSTALL_FULL_DATADIR}/maliit${MALIIT_LIB_SUFFIX}/plugins"
+                -DMALIIT_EXTENSIONS_DIR="${CMAKE_INSTALL_FULL_DATADIR}/maliit${MALIIT_LIB_SUFFIX}-framework/extensions"
                 -DMALIIT_CONFIG_ROOT="/maliit/"
-                -DMALIIT_PLUGINS_DIR="${CMAKE_INSTALL_FULL_LIBDIR}/maliit/plugins"
+                -DMALIIT_PLUGINS_DIR="${CMAKE_INSTALL_FULL_LIBDIR}/maliit${MALIIT_LIB_SUFFIX}/plugins"
                 -DMALIIT_DEFAULT_HW_PLUGIN="libmaliit-keyboard-plugin.so"
                 -DMALIIT_ENABLE_MULTITOUCH=true
                 -DMALIIT_DEFAULT_PLUGIN="libmaliit-keyboard-plugin.so"
