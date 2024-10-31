@@ -37,9 +37,11 @@ endif()
 
 if(Qt6_FOUND)
   set(QT_VERSION_MAJOR 6)
+  set(QT_VERSION ${Qt6_VERSION})
 else()
   find_package(Qt5 REQUIRED COMPONENTS Core DBus Gui Quick)
   set(QT_VERSION_MAJOR 5)
+  set(QT_VERSION ${Qt5_VERSION})
 endif()
 
 set(MALIIT_EXE_SUFFIX "")
@@ -399,10 +401,10 @@ configure_file(src/maliit-defines.prf.in maliit-defines.prf @ONLY)
 
 include(CMakePackageConfigHelpers)
 
-configure_package_config_file(src/MaliitPluginsConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/MaliitPluginsConfig.cmake
-        INSTALL_DESTINATION ${LIB_INSTALL_DIR}/cmake/MaliitPlugins
+configure_package_config_file(src/MaliitPluginsConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/Maliit${MALIIT_LIB_SUFFIX}PluginsConfig.cmake
+        INSTALL_DESTINATION ${LIB_INSTALL_DIR}/cmake/Maliit${MALIIT_LIB_SUFFIX}Plugins
         PATH_VARS CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR CMAKE_INSTALL_DATADIR)
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/MaliitPluginsConfigVersion.cmake
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/Maliit${MALIIT_LIB_SUFFIX}PluginsConfigVersion.cmake
         VERSION ${PACKAGE_VERSION}
         COMPATIBILITY AnyNewerVersion)
 
@@ -440,18 +442,18 @@ install(FILES
 install(FILES ${CMAKE_BINARY_DIR}/maliit-framework.prf ${CMAKE_BINARY_DIR}/maliit-plugins.prf ${CMAKE_BINARY_DIR}/maliit-defines.prf
         DESTINATION ${QT_MKSPECS_INSTALL_DIR}/features)
 
-install(EXPORT MaliitPluginsTargets FILE MaliitPluginsTargets.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MaliitPlugins)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/MaliitPluginsConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/MaliitPluginsConfigVersion.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MaliitPlugins)
+install(EXPORT MaliitPluginsTargets FILE Maliit${MALIIT_LIB_SUFFIX}PluginsTargets.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Maliit${MALIIT_LIB_SUFFIX}Plugins)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Maliit${MALIIT_LIB_SUFFIX}PluginsConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/Maliit${MALIIT_LIB_SUFFIX}PluginsConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Maliit${MALIIT_LIB_SUFFIX}Plugins)
 
 install(FILES INSTALL.local LICENSE.LGPL NEWS README.md
         DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/maliit-framework)
 
 if(enable-glib)
-    configure_package_config_file(maliit-glib/MaliitGLibConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/MaliitGLibConfig.cmake
-            INSTALL_DESTINATION ${LIB_INSTALL_DIR}/cmake/MaliitGLib
+    configure_package_config_file(maliit-glib/MaliitGLibConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/Maliit${MALIIT_LIB_SUFFIX}GLibConfig.cmake
+            INSTALL_DESTINATION ${LIB_INSTALL_DIR}/cmake/Maliit${MALIIT_LIB_SUFFIX}GLib
             PATH_VARS CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR CMAKE_INSTALL_DATADIR)
-    write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/MaliitGLibConfigVersion.cmake
+    write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/Maliit${MALIIT_LIB_SUFFIX}GLibConfigVersion.cmake
             VERSION ${PACKAGE_VERSION}
             COMPATIBILITY AnyNewerVersion)
 
@@ -467,9 +469,9 @@ if(enable-glib)
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/maliit${MALIIT_LIB_SUFFIX}-glib DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit-2
             FILES_MATCHING PATTERN "*.h")
 
-    install(EXPORT MaliitGLibTargets FILE MaliitGLibTargets.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MaliitGLib)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/MaliitGLibConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/MaliitGLibConfigVersion.cmake
-            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MaliitGLib)
+    install(EXPORT MaliitGLibTargets FILE Maliit${MALIIT_LIB_SUFFIX}GLibTargets.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Maliit${MALIIT_LIB_SUFFIX}GLib)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Maliit${MALIIT_LIB_SUFFIX}GLibConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/Maliit${MALIIT_LIB_SUFFIX}GLibConfigVersion.cmake
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Maliit${MALIIT_LIB_SUFFIX}GLib)
 
     install(FILES ${CMAKE_BINARY_DIR}/maliit${MALIIT_LIB_SUFFIX}-glib.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 endif()
