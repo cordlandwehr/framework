@@ -43,8 +43,10 @@ else()
 endif()
 
 set(MALIIT_EXE_SUFFIX "")
+set(MALIIT_LIB_SUFFIX "")
 if (Qt6_FOUND)
     set(MALIIT_EXE_SUFFIX "6")
+    set(MALIIT_LIB_SUFFIX "6")
 endif()
 
 if(NOT DEFINED QT_PLUGINS_INSTALL_DIR)
@@ -241,6 +243,7 @@ else()
 endif()
 
 add_library(maliit-plugins SHARED ${PLUGINS_SOURCES} ${PLUGINS_HEADER})
+set_target_properties(maliit-plugins PROPERTIES OUTPUT_NAME "maliit${MALIIT_LIB_SUFFIX}-plugins")
 target_link_libraries(maliit-plugins PRIVATE maliit-common maliit-connection ${PLUGINS_LIBRARIES})
 target_link_libraries(maliit-plugins PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Quick)
 target_include_directories(maliit-plugins PRIVATE ${PLUGINS_INCLUDE_DIRS})
@@ -297,6 +300,7 @@ if(enable-glib)
     gdbus_add_code(GLIB_SOURCES dbus_interfaces/minputmethodserver1interface.xml)
 
     add_library(maliit-glib SHARED ${GLIB_SOURCES} ${GLIB_HEADER})
+    set_target_properties(maliit-glib PROPERTIES OUTPUT_NAME "maliit${MALIIT_LIB_SUFFIX}-glib")
     target_include_directories(maliit-glib PUBLIC ${GIO_INCLUDE_DIRS})
     target_link_libraries(maliit-glib ${GIO_LIBRARIES})
     set_target_properties(maliit-glib PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR}
