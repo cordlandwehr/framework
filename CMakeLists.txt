@@ -389,9 +389,9 @@ endif()
 
 # Package files
 
-configure_file(common/maliit-framework.pc.in maliit-framework.pc @ONLY)
-configure_file(src/maliit-plugins.pc.in maliit-plugins.pc @ONLY)
-configure_file(src/maliit-server.pc.in maliit-server.pc @ONLY)
+configure_file(common/maliit-framework.pc.in maliit${MALIIT_LIB_SUFFIX}-framework.pc @ONLY)
+configure_file(src/maliit-plugins.pc.in maliit${MALIIT_LIB_SUFFIX}-plugins.pc @ONLY)
+configure_file(src/maliit-server.pc.in maliit${MALIIT_LIB_SUFFIX}-server.pc @ONLY)
 
 configure_file(common/maliit-framework.prf.in maliit-framework.prf @ONLY)
 configure_file(src/maliit-plugins.prf.in maliit-plugins.prf @ONLY)
@@ -432,7 +432,10 @@ install(DIRECTORY src/maliit
 install(FILES src/mimserver.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/maliit${MALIIT_LIB_SUFFIX}-2/maliit)
 
-install(FILES ${CMAKE_BINARY_DIR}/maliit-framework.pc ${CMAKE_BINARY_DIR}/maliit-plugins.pc ${CMAKE_BINARY_DIR}/maliit-server.pc
+install(FILES
+        ${CMAKE_BINARY_DIR}/maliit${MALIIT_LIB_SUFFIX}-framework.pc
+        ${CMAKE_BINARY_DIR}/maliit${MALIIT_LIB_SUFFIX}-plugins.pc
+        ${CMAKE_BINARY_DIR}/maliit${MALIIT_LIB_SUFFIX}-server.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 install(FILES ${CMAKE_BINARY_DIR}/maliit-framework.prf ${CMAKE_BINARY_DIR}/maliit-plugins.prf ${CMAKE_BINARY_DIR}/maliit-defines.prf
         DESTINATION ${QT_MKSPECS_INSTALL_DIR}/features)
@@ -452,7 +455,7 @@ if(enable-glib)
             VERSION ${PACKAGE_VERSION}
             COMPATIBILITY AnyNewerVersion)
 
-    configure_file(maliit-glib/maliit-glib.pc.in maliit-glib.pc @ONLY)
+    configure_file(maliit-glib/maliit-glib.pc.in maliit${MALIIT_LIB_SUFFIX}-glib.pc @ONLY)
 
     install(TARGETS maliit-glib EXPORT MaliitGLibTargets
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -468,7 +471,7 @@ if(enable-glib)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/MaliitGLibConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/MaliitGLibConfigVersion.cmake
             DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MaliitGLib)
 
-    install(FILES ${CMAKE_BINARY_DIR}/maliit-glib.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+    install(FILES ${CMAKE_BINARY_DIR}/maliit${MALIIT_LIB_SUFFIX}-glib.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 endif()
 
 if(enable-qt5-inputcontext)
