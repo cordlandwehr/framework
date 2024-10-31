@@ -42,6 +42,11 @@ else()
   set(QT_VERSION_MAJOR 5)
 endif()
 
+set(MALIIT_EXE_SUFFIX "")
+if (Qt6_FOUND)
+    set(MALIIT_EXE_SUFFIX "6")
+endif()
+
 if(NOT DEFINED QT_PLUGINS_INSTALL_DIR)
     set(QT_PLUGINS_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/qt${QT_VERSION_MAJOR}/plugins" CACHE PATH
             "Installation directory for Qt ${QT_VERSION_MAJOR} plugins [LIB_INSTALL_DIR/qt${QT_VERSION_MAJOR}/plugins]")
@@ -310,6 +315,7 @@ add_definitions(-DMALIIT_FRAMEWORK_USE_INTERNAL_API
                 -DMALIIT_DEFAULT_SUBVIEW="")
 
 add_executable(maliit-server passthroughserver/main.cpp)
+set_target_properties(maliit-server PROPERTIES OUTPUT_NAME "maliit${MALIIT_EXE_SUFFIX}-server")
 target_link_libraries(maliit-server maliit-plugins maliit-connection)
 
 if(enable-qt-inputcontext)
@@ -346,6 +352,7 @@ if(enable-examples)
             examples/apps/plainqt/mainwindow.cpp
             examples/apps/plainqt/mainwindow.h
             examples/apps/plainqt/plainqt.cpp)
+    set_target_properties(maliit-exampleapp-plainqt PROPERTIES OUTPUT_NAME "maliit${MALIIT_EXE_SUFFIX}-exampleapp-plainqt")
     target_link_libraries(maliit-exampleapp-plainqt Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets)
 
     add_library(cxxhelloworldplugin MODULE
@@ -582,6 +589,7 @@ if(enable-tests)
                 tests/ut_maliit_glib_settings/ut_maliit_glib_settings.c
                 tests/ut_maliit_glib_settings/mockmaliitserver.c
                 tests/ut_maliit_glib_settings/mockmaliitserver.h)
+        set_target_properties(ut_maliit_glib_settings PROPERTIES OUTPUT_NAME "ut_maliit_glib_settings${MALIIT_EXE_SUFFIX}")
         target_link_libraries(ut_maliit_glib_settings GLib2::GLib GLib2::GIO maliit-glib)
 
         add_test(ut_maliit_glib_settings ut_maliit_glib_settings)
