@@ -601,9 +601,9 @@ if(enable-tests)
         set_target_properties(ut_maliit_glib_settings PROPERTIES OUTPUT_NAME "ut_maliit_glib_settings${MALIIT_EXE_SUFFIX}")
         target_link_libraries(ut_maliit_glib_settings GLib2::GLib GLib2::GIO maliit-glib)
 
-        add_test(ut_maliit_glib_settings ut_maliit_glib_settings)
+        add_test(ut_maliit_glib_settings ut_maliit_glib_settings${MALIIT_EXE_SUFFIX})
         if(install-tests)
-            install(TARGETS ut_maliit_glib_settings DESTINATION ${CMAKE_INSTALL_LIBDIR}/maliit-framework-tests/ut_maliit_glib_settings)
+            install(TARGETS ut_maliit_glib_settings DESTINATION ${CMAKE_INSTALL_LIBDIR}/maliit-framework-tests/ut_maliit_glib_settings${MALIIT_EXE_SUFFIX})
         endif()
     endif()
 
